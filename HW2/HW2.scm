@@ -53,10 +53,8 @@
   )
 
 ; #6
-(define (filter-out-er fn lst)
-  (cond ((null? lst) '())
-        ((not (fn (car lst))) (cons (car lst) (filter-out-er fn (cdr lst))))
-        (else (filter-out-er fn (cdr lst)))
-        )
+(define (filter-out-er fn)
+  (lambda (lst)
+    (filter (lambda (x) (not (fn x))) lst)
+    )
   )
-

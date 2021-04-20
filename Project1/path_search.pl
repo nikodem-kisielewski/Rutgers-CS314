@@ -149,7 +149,7 @@ service(tf, rd).
 
 memberL(X, [X|_]).
 memberL(X, [_|T]):-
-    member(X, T).
+    memberL(X, T).
 
 
 %Reverse rule:

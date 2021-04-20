@@ -147,8 +147,8 @@ service(tf, rd).
 % memberL(e, [a, b, c]).
 % false.
 
-memberL(X, [H|T]):-
-    X = H;
+memberL(X, [X|_]).
+memberL(X, [_|T]):-
     member(X, T).
 
 

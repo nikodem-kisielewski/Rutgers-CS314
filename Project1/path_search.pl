@@ -480,29 +480,22 @@ get_min_from_pq([search_node(_, C1, _)|St], search_node(N2, C2, P2), Min2):-
 %   Takes one node from the SearchNodesList and checks it
 %   against all of the nodes in the PQ
 
-updateH(_, [], _).
-updateH(search_node(N, C1, P1), [search_node(N, C2, _)|_], Fin):-
-    C1 =< C2, !,
-    Fin = search_node(N, C1, P1),
-    updateH(search_node(N, C1, P1), [], Fin).
-updateH(search_node(N, _, _), [search_node(N, C2, P2)|_], Fin):-
-    Fin = search_node(N, C2, P2),
-    updateH(search_node(N, _, _), [], Fin).
-updateH(Sn, [_|Pt], Fin):-
-    updateH(Sn, Pt, Fin).
-
 update_pq([], [], []).
-update_pq([search_node(N, C1, P1)|St], [search_node(N, C2, _)|Pt], [Fh|Ft]):-
+update_pq(SNL, PQ, [Nh|Nt]):-
+    get_min_from_pq(SNL, search_node(N1, C1, P1)),
+    memberL(search_node(N1, C2, P2), PQ),
     C1 =< C2, !,
-    Fh = search_node(N, C1, P1),
-    update_pq(St, Pt, Ft).
-update_pq([search_node(N, _, _)|St], [search_node(N, C2, P2)|Pt], [Fh|Ft]):-
-    Fh = search_node(N, C2, P2),
-    update_pq(St, Pt, Ft).
-update_pq([Sh|St], PQ, [Fh|Ft]):-
-    updateH(Sh, PQ, Fh),
-    update_pq(St, PQ, Ft).
-
+    Nh = search_node(N1, C1, P1),
+    deleteL(search_node(N1, C1, P1), SNL, NSNL),
+    deleteL(search_node(N1, C2, P2), PQ, NPQ),
+    update_pq(NSNL, NPQ, Nt).
+update_pq(SNL, PQ, [Nh|Nt]):-
+    get_min_from_pq(SNL, search_node(N1, C1, P1)),
+    memberL(search_node(N1, C2, P2), PQ),
+    Nh = search_node(N1, C2, P2),
+    deleteL(search_node(N1, C1, P1), SNL, NSNL),
+    deleteL(search_node(N1, C2, P2), PQ, NPQ),
+    update_pq(NSNL, NPQ, Nt).
 
 
 %% DO NOT MODIFY ANYTHING BELOW THIS LINE %%

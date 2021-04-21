@@ -1,0 +1,109 @@
+
+For the below, generate and test your code using swipl on one of the machines in the iLab 'Command' or 'Meltdown' clusters.
+	You can see which machines are part of each cluster at:
+		https://report.cs.rutgers.edu/nagiosnotes/iLab-machines.html
+
+Each question below should be put in to a separate Prolog file.
+
+Once you are happy with your code, compress it in to a single file named 'HWprolog.tar.gz' on the iLabs using tar.
+	Check out ./Resources/iLab_Info/tutorial_TarFiles on Sakai.
+Only submit your compressed file.
+
+
+0: Write a file named 'fixedLion.pl'
+	Download lion.pl from ./Resources/Language_Info/Prolog on Sakai.
+	Modify it so it does not cause an infinite loop on the query "eats(lion, X)." when ";" is entered to request more solutions than the first.
+	Do not add or remove any lines from lion.pl, however you may change the order of any of the facts, rules or any rule's clauses.
+
+
+1 :Write a file named 'indexList.pl'
+	indexList(A, B, C) should be true if A is the B+1th element of list C.
+		e.g.:
+			indexList(a, 1, [a, b]).
+			false.
+			
+			indexList(a, 0, [a, b]).
+			true.
+			
+			indexList(b, 0, [a, b]).
+			false.
+			
+			indexList(b, 1, [a, b]).
+			true.
+			
+			indexList(b, 2, [a, b]).
+			false.
+	
+		n.b.: You don't need more than two rules to do this. They should be of the form:
+			indexList(A, B, [ ... ]) :- .... .
+			indexList(A, B, [ ... ]) :- .... .
+	
+	
+2: Write a file named 'fixedNotMem.pl'
+	Download member.pl from ./Resources/Language_Info/Prolog on Sakai.
+	Take a look at how it operates and test it out.
+	Someone tried to implement a simple inverse of the functionality of 'member' to make sure a given element is NOT in a list by modifying the code from 'member.pl':
+		notmember(A, [A|B]).
+		notmember(A, [B|C]) :- \+notmember(A,C).
+	From some basic testing, you can quickly find out it does not work as intended. It is supposed to declare 'false' if A appears in the list and 'true' if it does not.
+	Fix notmember so that it works as intended. Do not change the interface for the definition. Use only the two original rules and at most two variables, however feel free to modify the structure of the variables and to add, remove, or modify the rules' clauses as you see fit.
+
+
+3: Write a file named 'flattened.pl'
+	It should contain the rule 'flattened' that takes one parameter, a list. It should only return true if the list is flat, that is, it has no sublists. If it has any sublists, it should return false.
+		e.g.:
+			flattened([a]).
+			true.
+			
+			flattened([a, b, c]).
+			true.
+
+			flattened([a, [b], c]).
+			false.
+
+			flattened([[a]]).
+			false.
+
+		n.b.: You may use as many rules as you wish to define 'flattened', however you will receive extra credit if you can define it in only one rule with two clauses.
+			
+
+4. Write a file name 'bstStuff.pl'
+For all of the below, we'll represent a Binary Search Tree in prolog the following way:
+	bst(L, V, R) 
+		.. where:
+			we presume 'V' is a number
+			'L' is a 'bst' holding elements strictly less than 'V', or is empty
+			'R' is a 'bst' holding elements greater than or equal to 'V', or is empty
+			'nil' represents an empty node/subtree
+			
+	e.g.:
+		a very small bst holding only '1' is:
+			bst(nil, 1, nil).
+		a balanced bst holding '1' through '3' is:
+			bst( bst(nil, 1, nil), 2, bst(nil, 3, nil)).
+		an imbalanced bst holding '1' through '3' is:
+			bst( bst( bst( nil, 1, nil), 2, nil), 3, nil).
+
+	
+	'bstStuff.pl' should contain three definitions:
+		get_min(bst(L, V, R), X) where 'X' is the minimal element in the bst given. You need no more than two rules to define it, but you can use as many as you like.
+		
+		get_max(A, X) where 'X' is the maximal element in the bst given. You need no more than two rules to define it, but you can use as many as you like.
+
+		is_bst(bst(L, V, R)) where the bst is tested to see if it is a correctly-formed bst. You need no more than one rule to define it, but you can use as many as you like. While using only one rule might feel a bit complex, it will make the definition much cleaner and easier to debug. Hint: think about what it means for a tree to be a bst and take a look at get_min and get_max.
+
+
+
+Be sure to compress all your files:
+	fixedLion.pl
+	indexList.pl
+	fixedNotMem.pl
+	flattened.pl
+	bstStuff.pl
+	
+	...in to one tar.gz file:
+	   HWprolog.tar.gz
+
+	... and submit only the tar.gz file.
+	   
+	   

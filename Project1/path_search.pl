@@ -476,15 +476,11 @@ get_min_from_pq([search_node(_, C1, _)|St], search_node(N2, C2, P2), Min2):-
 % X = [search_node(s1, 0, [s1]), search_node(s3, 1, [s3])].
 % Only search_node(s3, _, _) is updated to the new cost and path since the orignal cost 4 is larger than 0.
 
-% Helper function -> only used when the lists are not in the same order
-%   Takes one node from the SearchNodesList and checks it
-%   against all of the nodes in the PQ
-
-update_pq([], [], []).
+update_pq([], _, []).
 update_pq(SNL, PQ, [Nh|Nt]):-
     get_min_from_pq(SNL, search_node(N1, C1, P1)),
     memberL(search_node(N1, C2, P2), PQ),
-    C1 =< C2, !,
+    C1 < C2, !,
     Nh = search_node(N1, C1, P1),
     deleteL(search_node(N1, C1, P1), SNL, NSNL),
     deleteL(search_node(N1, C2, P2), PQ, NPQ),
@@ -618,23 +614,3 @@ dijkstra(Day, Goal, Visited, PQ, Path, Cost) :-
 navigate(Day, Start, Goal, Method, Path, Cost) :- 
     node(Start), node(Goal), day(Day), % Invalid methods will fail at compile time.
     call(Method, Day, Start, Goal, Path, Cost).
-    
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

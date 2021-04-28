@@ -7,6 +7,6 @@ Project 0:  Creating a program that draws varuious shapes in Scheme using stars 
 
 HWProlog: Introduction to programming in Prolog
 
-Project1: Finding shortest train station path using DFS, BFS, and Dijkstra's algorithm
+Project1: Finding shortest train station path using DFS, BFS, and Dijkstra's algorithm in Prolog
 
 Project2: Using Python to analyze data

@@ -309,10 +309,12 @@ class data_analysis:
         '''
 
         #### FILL IN CODE HERE ####
+        # Subtract the second list from each sublist of the first list and put the result in a new list
         sub = []
         for i in range(0, len(list_of_series)):
             sub.append(list(map(lambda x, y: (x-y) ** 2, list_of_series[i], average_series)))
 
+        # Standard deviation computation
         sum_list = [sum(num) for num in zip(*sub)]
         div = list(map(lambda n: n/len(list_of_series), sum_list))
         std_list = list(map(lambda n: n ** 0.5, div))
@@ -370,6 +372,7 @@ class data_analysis:
         
         '''
         #### FILL IN CODE HERE ####
+        # Create a correlation list using the previous function
         correlation_list = self.compute_correlations(data_series_1, data_series_2)
 
         # Add up the values of the correlation list
@@ -394,11 +397,12 @@ class data_analysis:
         '''
 
         #### FILL IN CODE HERE ####
-        # If there is a 0 in the second list, return the empty list
+        # Try to divide, if there is a division by zero, print an error and exit the program
         try:
             ratio_list = list(map(lambda x, y: x/y, data_series_1, data_series_2))
         except ZeroDivisionError:
-            return []
+            print("Error: Division by zero, exiting program...")
+            exit()
 
         return ratio_list
 
